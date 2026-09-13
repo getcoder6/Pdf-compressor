@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Compress PDF files online. Reduce PDF size quickly with adjustable compression levels.">
+  <meta name="theme-color" content="#2563eb">
+  <title>Compress PDF Online — PDFShrink</title>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="/" aria-label="PDFShrink home">
+        <span class="brand-mark">P</span><span>PDFShrink</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="#how-it-works">How it works</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="eyebrow">FAST • SIMPLE • PRIVATE</div>
+        <h1>Compress PDF files<br><span>without the hassle.</span></h1>
+        <p class="hero-copy">Reduce PDF size in a few clicks. Your selected PDF is processed in your browser in this version.</p>
+
+        <section class="tool-card" aria-labelledby="tool-title">
+          <h2 id="tool-title" class="sr-only">PDF compression tool</h2>
+
+          <div id="dropzone" class="dropzone" tabindex="0" role="button" aria-label="Choose a PDF file">
+            <div class="upload-icon" aria-hidden="true">↑</div>
+            <h3>Drop your PDF here</h3>
+            <p>or choose a file from your device</p>
+            <button id="chooseBtn" class="primary-btn" type="button">Choose PDF</button>
+            <input id="fileInput" type="file" accept="application/pdf,.pdf" class="file-input">
+            <small>PDF only • up to 25 MB</small>
+          </div>
+
+          <div id="filePanel" class="file-panel hidden">
+            <div class="file-meta">
+              <div class="pdf-icon" aria-hidden="true">PDF</div>
+              <div class="file-text">
+                <strong id="fileName">document.pdf</strong>
+                <span id="fileSize">0 KB</span>
+              </div>
+              <button id="removeBtn" class="icon-btn" type="button" aria-label="Remove selected file">×</button>
+            </div>
+
+            <div class="settings">
+              <div>
+                <label for="quality">Compression level</label>
+                <select id="quality">
+                  <option value="recommended">Recommended — balanced quality</option>
+                  <option value="strong">Strong — smaller file</option>
+                  <option value="maximum">Maximum — smallest practical file</option>
+                </select>
+              </div>
+              <button id="compressBtn" class="primary-btn wide" type="button">Compress PDF</button>
+            </div>
+          </div>
+
+          <div id="statusPanel" class="status hidden" aria-live="polite">
+            <div class="status-row">
+              <span id="statusText">Preparing…</span>
+              <span id="statusPercent">0%</span>
+            </div>
+            <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
+          </div>
+
+          <div id="resultPanel" class="result hidden" aria-live="polite">
+            <div class="result-icon" aria-hidden="true">✓</div>
+            <div class="result-content">
+              <h3>Compression complete</h3>
+              <p id="resultText"></p>
+            </div>
+            <a id="downloadBtn" class="download-btn" href="#" download>Download PDF</a>
+          </div>
+
+          <div id="errorPanel" class="error hidden" role="alert"></div>
+        </section>
+
+        <div class="trust-row">
+          <span>✓ No registration</span>
+          <span>✓ Browser processing</span>
+          <span>✓ Free to test</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="how-it-works" class="content-section">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">HOW IT WORKS</div>
+          <h2>Three simple steps</h2>
+        </div>
+        <div class="steps">
+          <article><span>01</span><h3>Choose a PDF</h3><p>Select a PDF from your phone, tablet or computer.</p></article>
+          <article><span>02</span><h3>Pick compression</h3><p>Choose a balance between visual quality and file size.</p></article>
+          <article><span>03</span><h3>Download</h3><p>Save the generated compressed PDF to your device.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="content-section alt">
+      <div class="container faq">
+        <div class="section-heading">
+          <div class="eyebrow">FAQ</div>
+          <h2>Frequently asked questions</h2>
+        </div>
+        <details><summary>Is this PDF compressor free?</summary><p>Yes. This starter version has no account requirement and no payment step.</p></details>
+        <details><summary>Are my files uploaded?</summary><p>This version processes the selected PDF in the browser. Your website can later be upgraded to a server-side optimizer for stronger compression.</p></details>
+        <details><summary>Why did my PDF sometimes become larger?</summary><p>Some PDFs are already optimized. Rebuilding a PDF as page images can increase its size, so the tool reports the actual result rather than claiming a reduction that did not happen.</p></details>
+        <details><summary>Does compression preserve selectable text?</summary><p>The browser-only image-rebuild method can turn pages into images, so selectable text, links, forms and some PDF metadata may not be preserved. For a production-grade compressor, use a true PDF optimization engine on the server.</p></details>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <span>© 2026 PDFShrink</span>
+      <div><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Contact</a></div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs" type="module"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script type="module" src="script.js"></script>
+
+<script>
+(function () {
+  function getFileInput() {
+    return document.querySelector('input[type="file"]');
+  }
+
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest && e.target.closest(
+      'label[for], .file-upload, .upload-btn, #uploadBtn, #chooseFile, [data-file-upload]'
+    );
+    if (!el) return;
+
+    var input = getFileInput();
+    if (!input) return;
+
+    var forId = el.getAttribute('for');
+    if (forId) {
+      var byId = document.getElementById(forId);
+      if (byId && byId.type === 'file') return; // native label behavior
+    }
+
+    e.preventDefault();
+    input.click();
+  });
+})();
+</script>
+
+</body>
+</html>
