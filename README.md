@@ -10,16 +10,7 @@
 - Download result
 - SEO title/description
 - FAQ and basic landing-page content
-
-## Run locally
-For best browser compatibility, serve the folder over HTTP instead of opening the HTML with `file://`.
-
-If Python is installed:
-    python -m http.server 8000
-
-Then open:
-    http://localhost:8000
-
+- 
 ## Important production note
 This implementation uses PDF.js to render pages and jsPDF to rebuild them as JPEG-backed pages. That is useful for a no-backend prototype, but it is NOT equivalent to a full PDF optimizer.
 
